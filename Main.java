@@ -1,50 +1,67 @@
-//Binary search is not effective for small data sets 
-//Run time complexity is O(log n). Meaning to say the larger the dataset a binary search becomes more and more effective compared to other algorithms 
-//In order for binary search to work the data set needs to be sorted 
-//The search process will begin in the middle and keep on halving the dataset till the value is found 
+/********************************************
+BINARY SEARCH 
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] Target: 7
+For a binary search to work it needs to be sorted. 
+Once sorted binary search will start in the midde of the dataset to see if that is the target
+It will also check if the target value is smaller or bigger than the target value 
+If the target is bigger it will discard the smaller half. 
+This process will continue until the target is found 
+
+Not good for small datasets 
+
+Time Complexity O(log n) - The larger the dataset the more effective 
+*/
 
 import java.util.*;
 
 class Main {
   public static void main(String[] args) {
 
-		int array[] = new int[1000000];
-		int target = 6537; 
+		int array[] = new int[10000000];
+		int target = 69;
 
 		for(int i = 0; i < array.length; i++){
 			array[i] = i;
 		}
 
-		//Using build in binary search function 
-		//int index = Arrays.binarySearch(array, target);
+		//Below is code for using build in binary search function 
+		/*
+		int index = Arrays.binarySearch(array, target);
 
-		//Building binary search function 
+		if(index == -1){
+			System.out.println("Target not found");
+		} else {
+			System.out.println("Target Found at index: " + index);
+		}
+		*/
+
+		//Below is code for creating your own binary search function 
 		int index = binarySearch(array, target);
 
 		if(index == -1){
-			System.out.println("Not Found");
-		} else 
-			System.out.println("Found at " + index);
-  }
-
-	private static int binarySearch(int[]array, int target){
-		int low = 0; 
-		int high = array.length - 1; 
-
-		while(low <= high){
-			int middle = low + (high - low) / 2;
-			int value = array[middle];
-
-			System.out.println("Middle: " + middle);
-
-			if(value < target) low = middle + 1; 
-			else if(value > target) high = middle - 1; 
-			else return middle; //target found 
-			
+			System.out.println("Target not found");
+		} else {
+			System.out.println("Target found at index: " + index);
 		}
-		
-		return -1; //target not found 
-	}
+	}	
 
+	private static int binarySearch(int[] array, int target){
+
+		//Variables for beginning and end of array 
+		int low = 0;  
+		int high = array.length -1; 
+
+		 while(low <= high) { 
+			 int middle = low + (high - low) / 2;
+			 int value = array[middle];
+			 System.out.println("Current middle value is: " + value);
+
+			 if(value < target) low = middle + 1; 
+			 else if (value > target) high = middle - 1;
+			 else return middle; //Target is found 
+		 }
+		
+		return -1; // -1 Means the target is not found 
+	}
 	
 }
